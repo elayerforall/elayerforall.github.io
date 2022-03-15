@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Picker</title>
+    <style>
+        body,
+        input {
+            color: #def;
+            background-color: #333;
+            margin: 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        input {
+            width: 32%;
+            font-size: 24px;
+            border: 1px solid green;
+        }
+
+        #a {
+            height: 3em;
+        }
+
+        button {
+            font-weight: bolder;
+        }
+
+        #c {
+            display: inline-flex;
+            flex-direction: column;
+        }
+
+        #e {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #color {
+            font-weight: bolder;
+            font-size: 24px;
+            border: 1px solid green;
+            margin: 0 1em;
+            padding: .3em 1em;
+        }
+
+        #msg {
+            color: greenyellow;
+            font-size: medium;
+            font-weight: bold;
+        }
+
+        #b {
+            padding: 1em;
+            float: right;
+        }
+
+        b {
+            color: #00ac6d;
+        }
+
+        h1 {
+            margin-top: 0.3em;
+        }
+    </style>
+</head>
+
+<body>
+    <a id="b" target="_blank" href="https://elayerforall.github.io/">from <b>elayerforall.github.io</b></a>
+    <center><a href="">
+            <h1>Refresh</h1>
+        </a>
+        <input type="file" name="" id="img" onchange="retrive(event)">
+        <input type="url" id="url" placeholder="Enter URL..">
+        <input type="submit" value="Load" onclick="fetch()">
+        <span id="e">
+            <input type="color" name="" id="a" oninput="show(this)">
+            <span id="c">
+                <span id="color">#000000</span>
+                <button onclick="c()">Copy</button>
+            </span>
+            <span>
+                <button onclick="z(10)">10%</button>
+                <button onclick="z(20)">20%</button>
+                <button onclick="z(30)">30%</button>
+                <button onclick="z(40)">40%</button>
+                <button onclick="z(50)">50%</button>
+                <button onclick="z(60)">60%</button>
+                <button onclick="z(70)">70%</button>
+                <button onclick="z(80)">80%</button>
+                <button onclick="z(90)">90%</button>
+                <button onclick="z(100)">100%</button>
+                <button onclick="z(0)">Original</button>
+            </span>
+        </span> <br> <span id="msg"></span> <br>
+        <img src="" alt="Preview goes here" id="pos">
+    </center>
+    <script>
+        var pos = document.getElementById('pos');
+        var url = document.getElementById('url');
+        var color = document.getElementById('color');
+        var msg = document.getElementById('msg');
+        var reader = new FileReader();
+        function retrive(obj) {
+            pos.src = URL.createObjectURL(obj.target.files[0]);
+            pos.onload = function () {
+                URL.revokeObjectURL(pos.src);
+            }
+        }
+        function fetch() {
+            pos.src = url.value;
+        }
+        function show(obj) {
+            color.innerText = obj.value;
+        }
+        function z(v) {
+            if (v) {
+                pos.style.width = v + '%';
+            } else {
+                pos.style.width = 'auto';
+            }
+        }
+        function c() {
+            msg.innerText = "Copied: " + color.innerText;
+            var t = document.createElement("textarea");
+            t.innerText = color.innerText;
+            document.body.appendChild(t);
+            t.select();
+            document.execCommand('copy');
+            document.body.removeChild(t);
+        }
+    </script>
+</body>
+
+</html>

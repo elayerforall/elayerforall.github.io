@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Viewer</title>
+    <style>
+        body,
+        input,
+        textarea {
+            color: #def;
+            background-color: #333;
+            margin: 0;
+            font-size: 20px;
+            border: 1px solid green;
+        }
+
+        #a {
+            height: 30%;
+            width: 90%
+        }
+
+        #m,
+        #n {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #m div,
+        #n div {
+            border: 1px solid #000;
+            padding: 1em 5em;
+            position: relative;
+            height: 1.5em;
+        }
+
+        #m span,
+        #n span {
+            border: 1px solid #fff;
+            position: absolute;
+            right: 1px;
+            bottom: 1px;
+            padding: 0.1em 0.5em;
+            background-color: #000;
+        }
+
+        #b {
+            padding: 1em;
+            float: right;
+        }
+
+        b {
+            color: #00ac6d;
+        }
+
+        h1 {
+            margin-top: 0.3em;
+        }
+    </style>
+</head>
+
+<body>
+    <a id="b" target="_blank" href="https://elayerforall.github.io/">from <b>elayerforall.github.io</b></a>
+    <center>
+        <a href="">
+            <h1>Refresh</h1>
+        </a>
+        <div>
+            <p id="p"></p>
+            <textarea name="" id="a" onkeyup="on()" placeholder="Enter Hex color codes"></textarea>
+        </div>
+        <div id="m">
+            <div><span>#333</span></div>
+        </div>
+        <div id="n">
+            <div><span>#def</span></div>
+        </div>
+    </center>
+    <script>
+        var a = document.getElementById("a");
+        var m = document.getElementById("m");
+        var n = document.getElementById("n");
+        var p = document.getElementById("p");
+        var t = document.createElement("textarea");
+        function on() {
+            if (a.value) {
+                m.innerHTML = "";
+                if (a.value.match(/[a-f0-9]{6}/gi)) {
+                    a.value.match(/[a-f0-9]{6}/gi).forEach((el) => {
+                        m.innerHTML += "<div onclick='c(this)' style='background:#" + el + "'><span>#" + el + "</span></div>";
+                    });
+                }
+                n.innerHTML = "";
+                if (a.value.match(/[a-f0-9]{3}/gi)) {
+                    a.value.match(/[a-f0-9]{3}/gi).forEach((el) => {
+                        n.innerHTML += "<div onclick='c(this)'  style='background:#" + el + "'><span>#" + el + "</span></div>";
+                    });
+                }
+
+            }
+        }
+        function c(obj) {
+            // n.innerHTML = obj.next
+            p.innerText = "Copied: " + obj.firstChild.innerText;
+            t.innerText = obj.firstChild.innerText;
+            document.body.appendChild(t);
+            t.select();
+            document.execCommand('copy');
+            document.body.removeChild(t);
+        }
+    </script>
+</body>
+
+</html>
